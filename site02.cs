@@ -25,6 +25,7 @@ namespace site02
             Exiled.Events.Handlers.Server.RoundStarted += OnRoundStarted;
 
             Exiled.Events.Handlers.Player.Verified += OnVerified;
+            Exiled.Events.Handlers.Player.Left += OnLeft;
             Exiled.Events.Handlers.Player.Died += OnDied;
             Exiled.Events.Handlers.Player.SearchingPickup += OnSearchingPickup;
             Exiled.Events.Handlers.Player.DroppedItem += OnDroppedItem;
@@ -39,6 +40,7 @@ namespace site02
             Exiled.Events.Handlers.Server.RoundStarted -= OnRoundStarted;
 
             Exiled.Events.Handlers.Player.Verified -= OnVerified;
+            Exiled.Events.Handlers.Player.Left -= OnLeft;
             Exiled.Events.Handlers.Player.Died -= OnDied;
             Exiled.Events.Handlers.Player.SearchingPickup -= OnSearchingPickup;
             Exiled.Events.Handlers.Player.DroppedItem -= OnDroppedItem;
@@ -70,6 +72,14 @@ namespace site02
 
             Stage.Add(ev.Player.UserId, "1");
 
+            if (Player.List.Count == 2)
+            {
+                Server.ExecuteCommand($"/au add 1");
+                Server.ExecuteCommand($"/au vol 1 3");
+                Server.ExecuteCommand($"/au loop 1 true");
+                Server.ExecuteCommand($"/au play 1 1.ogg");
+            }
+
             while (ev.Player != null)
             {
                 if (!ev.Player.IsDead)
@@ -77,6 +87,14 @@ namespace site02
                     ev.Player.ShowHint($"<b>Stage {Stage[ev.Player.UserId]}</b>", 1);
                 }
                 await Task.Delay(1000);
+            }
+        }
+
+        public void OnLeft(Exiled.Events.EventArgs.Player.LeftEventArgs ev)
+        {
+            if (Player.List.Count == 1)
+            {
+                Server.ExecuteCommand($"/au kick 1");
             }
         }
 
