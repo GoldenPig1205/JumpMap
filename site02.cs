@@ -15,6 +15,7 @@ namespace site02
         public static site02 Instance;
 
         public List<string> Owner = new List<string>() { "76561198447505804@steam" };
+        public Dictionary<string, string> Stage = new Dictionary<string, string>();
 
         public override void OnEnabled()
         {
@@ -25,6 +26,10 @@ namespace site02
 
             Exiled.Events.Handlers.Player.Verified += OnVerified;
             Exiled.Events.Handlers.Player.Died += OnDied;
+            Exiled.Events.Handlers.Player.SearchingPickup += OnSearchingPickup;
+            Exiled.Events.Handlers.Player.DroppedItem += OnDroppedItem;
+            Exiled.Events.Handlers.Player.SpawnedRagdoll += OnSpawnedRagdoll;
+            Exiled.Events.Handlers.Player.Landing += OnLanding;
             Exiled.Events.Handlers.Player.FlippingCoin += OnFlippingCoin;
         }
 
@@ -35,6 +40,10 @@ namespace site02
 
             Exiled.Events.Handlers.Player.Verified -= OnVerified;
             Exiled.Events.Handlers.Player.Died -= OnDied;
+            Exiled.Events.Handlers.Player.SearchingPickup -= OnSearchingPickup;
+            Exiled.Events.Handlers.Player.DroppedItem -= OnDroppedItem;
+            Exiled.Events.Handlers.Player.SpawnedRagdoll -= OnSpawnedRagdoll;
+            Exiled.Events.Handlers.Player.Landing -= OnLanding;
             Exiled.Events.Handlers.Player.FlippingCoin -= OnFlippingCoin;
 
             Instance = null;
@@ -43,6 +52,7 @@ namespace site02
         public void OnWaitingForPlayers()
         {
             Server.ExecuteCommand($"/decontamination disable");
+            Server.FriendlyFire = true;
             Round.IsLocked = true;
             Round.Start();
         }
@@ -51,25 +61,29 @@ namespace site02
         {
             MapEditorReborn.API.Features.Serializable.MapSchematic mapByName = MapEditorReborn.API.Features.MapUtils.GetMapByName("jm");
             MapEditorReborn.API.API.CurrentLoadedMap = mapByName;
-
-            AudioPlayer.API.AudioController.SpawnDummy(1, "DJ GoldenPig1205", "yellow", "GoldenRadio");
-
         }
 
-        public void OnVerified(Exiled.Events.EventArgs.Player.VerifiedEventArgs ev)
+        public async void OnVerified(Exiled.Events.EventArgs.Player.VerifiedEventArgs ev)
         {
-            if (Owner.Contains(ev.Player.UserId))
-            {
-                UserGroup owner = new UserGroup() { Permissions = 9223372036854775807, KickPower = 255, RequiredKickPower = 255, Cover = false };
-                ev.Player.Group = owner;
-            }
-
             ev.Player.Role.Set(PlayerRoles.RoleTypeId.ClassD);
             ev.Player.Position = new Vector3(80.45463f, 1053.379f, -42.54824f);
+
+            Stage.Add(ev.Player.UserId, "1");
+
+            while (ev.Player != null)
+            {
+                if (!ev.Player.IsDead)
+                {
+                    ev.Player.ShowHint($"<b>Stage {Stage[ev.Player.UserId]}</b>", 1);
+                }
+                await Task.Delay(1000);
+            }
         }
 
         public async void OnDied(Exiled.Events.EventArgs.Player.DiedEventArgs ev)
         {
+            Stage[ev.Player.UserId] = "1";
+
             for (int i=1; i<5; i++)
             {
                 ev.Player.ShowHint($"{5 - i}초 뒤 부활합니다.", 1);
@@ -78,6 +92,36 @@ namespace site02
 
             ev.Player.Role.Set(PlayerRoles.RoleTypeId.ClassD);
             ev.Player.Position = new Vector3(80.45463f, 1053.379f, -42.54824f);
+        }
+
+        public void OnSearchingPickup(Exiled.Events.EventArgs.Player.SearchingPickupEventArgs ev)
+        {
+            ev.Player.AddItem(ev.Pickup);
+        }
+
+        public async void OnDroppedItem(Exiled.Events.EventArgs.Player.DroppedItemEventArgs ev)
+        {
+            await Task.Delay(10000);
+            ev.Pickup.Destroy();
+        }
+
+        public async void OnSpawnedRagdoll(Exiled.Events.EventArgs.Player.SpawnedRagdollEventArgs ev)
+        {
+            await Task.Delay(10000);
+            ev.Ragdoll.Destroy();
+        }
+
+        public void OnLanding(Exiled.Events.EventArgs.Player.LandingEventArgs ev)
+        {
+            if (Physics.Raycast(ev.Player.Position, Vector3.down, out RaycastHit hit, 1, (LayerMask)1))
+            {
+                string StageName = hit.transform.parent.name;
+
+                if (StageName.StartsWith("Stage "))
+                {
+                    Stage[ev.Player.UserId] = StageName.Replace("Stage ", "");
+                }
+            }
         }
 
         public void OnFlippingCoin(Exiled.Events.EventArgs.Player.FlippingCoinEventArgs ev)
