@@ -16,6 +16,7 @@ namespace site02
 
         public List<string> Owner = new List<string>() { "76561198447505804@steam" };
         public Dictionary<string, string> Stage = new Dictionary<string, string>();
+        public Dictionary<string, int> HealingCooldown = new Dictionary<string, int>(); // ID, 힐 쿨타임
 
         public override void OnEnabled()
         {
@@ -25,12 +26,12 @@ namespace site02
             Exiled.Events.Handlers.Server.RoundStarted += OnRoundStarted;
 
             Exiled.Events.Handlers.Player.Verified += OnVerified;
-            Exiled.Events.Handlers.Player.Left += OnLeft;
             Exiled.Events.Handlers.Player.Died += OnDied;
             Exiled.Events.Handlers.Player.SearchingPickup += OnSearchingPickup;
             Exiled.Events.Handlers.Player.DroppedItem += OnDroppedItem;
             Exiled.Events.Handlers.Player.SpawnedRagdoll += OnSpawnedRagdoll;
             Exiled.Events.Handlers.Player.Landing += OnLanding;
+            Exiled.Events.Handlers.Player.Hurt += OnHurt;
             Exiled.Events.Handlers.Player.FlippingCoin += OnFlippingCoin;
         }
 
@@ -40,12 +41,12 @@ namespace site02
             Exiled.Events.Handlers.Server.RoundStarted -= OnRoundStarted;
 
             Exiled.Events.Handlers.Player.Verified -= OnVerified;
-            Exiled.Events.Handlers.Player.Left -= OnLeft;
             Exiled.Events.Handlers.Player.Died -= OnDied;
             Exiled.Events.Handlers.Player.SearchingPickup -= OnSearchingPickup;
             Exiled.Events.Handlers.Player.DroppedItem -= OnDroppedItem;
             Exiled.Events.Handlers.Player.SpawnedRagdoll -= OnSpawnedRagdoll;
             Exiled.Events.Handlers.Player.Landing -= OnLanding;
+            Exiled.Events.Handlers.Player.Hurt -= OnHurt;
             Exiled.Events.Handlers.Player.FlippingCoin -= OnFlippingCoin;
 
             Instance = null;
@@ -59,10 +60,27 @@ namespace site02
             Round.Start();
         }
 
-        public void OnRoundStarted()
+        public async void OnRoundStarted()
         {
             MapEditorReborn.API.Features.Serializable.MapSchematic mapByName = MapEditorReborn.API.Features.MapUtils.GetMapByName("jm");
-            MapEditorReborn.API.API.CurrentLoadedMap = mapByName;
+            MapEditorReborn.API.API.CurrentLoadedMap = mapByName; 
+            
+            while (true)
+            {
+                foreach (var player in Player.List)
+                {
+                    if (HealingCooldown[player.UserId] <= 0)
+                    {
+                        player.Heal(10);
+                    }
+                    else
+                    {
+                        HealingCooldown[player.UserId] -= 1;
+                    }
+                }
+
+                await Task.Delay(1000);
+            }
         }
 
         public async void OnVerified(Exiled.Events.EventArgs.Player.VerifiedEventArgs ev)
@@ -71,14 +89,7 @@ namespace site02
             ev.Player.Position = new Vector3(80.45463f, 1053.379f, -42.54824f);
 
             Stage.Add(ev.Player.UserId, "1");
-
-            if (Player.List.Count == 2)
-            {
-                Server.ExecuteCommand($"/au add 1");
-                Server.ExecuteCommand($"/au vol 1 3");
-                Server.ExecuteCommand($"/au loop 1 true");
-                Server.ExecuteCommand($"/au play 1 1.ogg");
-            }
+            HealingCooldown.Add(ev.Player.UserId, 0);
 
             while (ev.Player != null)
             {
@@ -87,14 +98,6 @@ namespace site02
                     ev.Player.ShowHint($"<b>Stage {Stage[ev.Player.UserId]}</b>", 1);
                 }
                 await Task.Delay(1000);
-            }
-        }
-
-        public void OnLeft(Exiled.Events.EventArgs.Player.LeftEventArgs ev)
-        {
-            if (Player.List.Count == 1)
-            {
-                Server.ExecuteCommand($"/au kick 1");
             }
         }
 
@@ -140,6 +143,11 @@ namespace site02
                     Stage[ev.Player.UserId] = StageName.Replace("Stage ", "");
                 }
             }
+        }
+
+        public void OnHurt(Exiled.Events.EventArgs.Player.HurtEventArgs ev)
+        {
+            HealingCooldown[ev.Player.UserId] = 5;
         }
 
         public void OnFlippingCoin(Exiled.Events.EventArgs.Player.FlippingCoinEventArgs ev)
