@@ -15,7 +15,7 @@ namespace site02
         public static site02 Instance;
 
         public List<string> Owner = new List<string>() { "76561198447505804@steam" };
-        public Dictionary<string, string> Stage = new Dictionary<string, string>();
+        public Dictionary<string, string> Stage = new Dictionary<string, string>(); // ID, 스테이지
         public Dictionary<string, int> HealingCooldown = new Dictionary<string, int>(); // ID, 힐 쿨타임
 
         public override void OnEnabled()
@@ -26,9 +26,12 @@ namespace site02
             Exiled.Events.Handlers.Server.RoundStarted += OnRoundStarted;
 
             Exiled.Events.Handlers.Player.Verified += OnVerified;
+            Exiled.Events.Handlers.Player.Left += OnLeft;
+            Exiled.Events.Handlers.Player.Dying += OnDying;
             Exiled.Events.Handlers.Player.Died += OnDied;
             Exiled.Events.Handlers.Player.SearchingPickup += OnSearchingPickup;
             Exiled.Events.Handlers.Player.DroppedItem += OnDroppedItem;
+            Exiled.Events.Handlers.Player.DroppingAmmo += OnDroppingAmmo;
             Exiled.Events.Handlers.Player.SpawnedRagdoll += OnSpawnedRagdoll;
             Exiled.Events.Handlers.Player.Landing += OnLanding;
             Exiled.Events.Handlers.Player.Hurt += OnHurt;
@@ -41,9 +44,12 @@ namespace site02
             Exiled.Events.Handlers.Server.RoundStarted -= OnRoundStarted;
 
             Exiled.Events.Handlers.Player.Verified -= OnVerified;
+            Exiled.Events.Handlers.Player.Left -= OnLeft;
+            Exiled.Events.Handlers.Player.Dying -= OnDying;
             Exiled.Events.Handlers.Player.Died -= OnDied;
             Exiled.Events.Handlers.Player.SearchingPickup -= OnSearchingPickup;
             Exiled.Events.Handlers.Player.DroppedItem -= OnDroppedItem;
+            Exiled.Events.Handlers.Player.DroppingAmmo -= OnDroppingAmmo;
             Exiled.Events.Handlers.Player.SpawnedRagdoll -= OnSpawnedRagdoll;
             Exiled.Events.Handlers.Player.Landing -= OnLanding;
             Exiled.Events.Handlers.Player.Hurt -= OnHurt;
@@ -85,6 +91,7 @@ namespace site02
 
         public async void OnVerified(Exiled.Events.EventArgs.Player.VerifiedEventArgs ev)
         {
+            Server.ExecuteCommand($"/speak {ev.Player.Id} enable");
             ev.Player.Role.Set(PlayerRoles.RoleTypeId.ClassD);
             ev.Player.Position = new Vector3(80.45463f, 1053.379f, -42.54824f);
 
@@ -99,6 +106,17 @@ namespace site02
                 }
                 await Task.Delay(1000);
             }
+        }
+
+        public void OnLeft(Exiled.Events.EventArgs.Player.LeftEventArgs ev)
+        {
+            Stage.Remove(ev.Player.UserId);
+            HealingCooldown.Remove(ev.Player.UserId);
+        }
+
+        public void OnDying(Exiled.Events.EventArgs.Player.DyingEventArgs ev)
+        {
+            ev.Player.ClearInventory();
         }
 
         public async void OnDied(Exiled.Events.EventArgs.Player.DiedEventArgs ev)
@@ -124,6 +142,11 @@ namespace site02
         {
             await Task.Delay(10000);
             ev.Pickup.Destroy();
+        }
+
+        public void OnDroppingAmmo(Exiled.Events.EventArgs.Player.DroppingAmmoEventArgs ev)
+        {
+            ev.IsAllowed = false;
         }
 
         public async void OnSpawnedRagdoll(Exiled.Events.EventArgs.Player.SpawnedRagdollEventArgs ev)
