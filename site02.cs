@@ -49,7 +49,16 @@ namespace site02
             {
                 string pos = hit.collider.name;
 
-                if (pos == "Question 1")
+                if (pos.StartsWith("Stage "))
+                {
+                    int level = int.Parse(pos.Replace("Stage ", ""));
+                    int ul = int.Parse(site02.Instance.Stage[player.UserId]);
+
+                    if (level > ul)
+                        site02.Instance.Stage[player.UserId] = level.ToString();
+                }
+
+                else if (pos == "Question 1")
                     player.ShowHint($"이곳에 가장 처음으로 도달한 유저의 이름은 '은별'이다. (O/X)", 100);
 
                 else if (pos == "Believe")
@@ -102,7 +111,6 @@ namespace site02
             Exiled.Events.Handlers.Player.DroppedItem += OnDroppedItem;
             Exiled.Events.Handlers.Player.DroppingAmmo += OnDroppingAmmo;
             Exiled.Events.Handlers.Player.SpawnedRagdoll += OnSpawnedRagdoll;
-            Exiled.Events.Handlers.Player.Landing += OnLanding;
             Exiled.Events.Handlers.Player.Hurt += OnHurt;
             Exiled.Events.Handlers.Player.FlippingCoin += OnFlippingCoin;
         }
@@ -121,7 +129,6 @@ namespace site02
             Exiled.Events.Handlers.Player.DroppedItem -= OnDroppedItem;
             Exiled.Events.Handlers.Player.DroppingAmmo -= OnDroppingAmmo;
             Exiled.Events.Handlers.Player.SpawnedRagdoll -= OnSpawnedRagdoll;
-            Exiled.Events.Handlers.Player.Landing -= OnLanding;
             Exiled.Events.Handlers.Player.Hurt -= OnHurt;
             Exiled.Events.Handlers.Player.FlippingCoin -= OnFlippingCoin;
 
@@ -222,17 +229,14 @@ namespace site02
             {
                 int ul = int.Parse(Stage[ev.Player.UserId]);
 
-                switch (ul)
-                {
-                    case 5:
-                        return new Vector3(98.48161f, 1065.135f, -19.03773f);
+                if (ul >= 10)
+                    return new Vector3(68.40506f, 1073.64f, -61.16057f);
 
-                    case 10:
-                        return new Vector3(68.40506f, 1073.64f, -61.16057f);
+                else if (ul >= 5)
+                    return new Vector3(98.48161f, 1065.135f, -19.03773f);
 
-                    default:
-                        return new Vector3(80.45463f, 1053.379f, -42.54824f);
-                }
+                else
+                    return new Vector3(80.45463f, 1053.379f, -42.54824f);
             }
             ev.Player.Position = position();
         }
@@ -276,23 +280,6 @@ namespace site02
         {
             await Task.Delay(10000);
             ev.Ragdoll.Destroy();
-        }
-
-        public void OnLanding(Exiled.Events.EventArgs.Player.LandingEventArgs ev)
-        {
-            if (Physics.Raycast(ev.Player.Position, Vector3.down, out RaycastHit hit, 1, (LayerMask)1))
-            {
-                string StageName = hit.collider.name;
-
-                if (StageName.StartsWith("Stage "))
-                {
-                    int level = int.Parse(StageName.Replace("Stage ", ""));
-                    int ul = int.Parse(Stage[ev.Player.UserId]);
-
-                    if (level > ul)
-                        Stage[ev.Player.UserId] = level.ToString();
-                }
-            }
         }
 
         public void OnHurt(Exiled.Events.EventArgs.Player.HurtEventArgs ev)
