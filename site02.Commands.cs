@@ -42,6 +42,8 @@ namespace site02.Commands
 		public string[] Aliases { get; } = Array.Empty<string>();
 
 		public string Description { get; } = "돼지가 테스트용으로 만든 명령어";
+
+		public bool SanitizeResponse { get; } = true;
 	}
 
 	[CommandHandler(typeof(ClientCommandHandler))]
@@ -75,5 +77,7 @@ namespace site02.Commands
 		public string[] Aliases { get; } = Array.Empty<string>();
 
 		public string Description { get; } = "금단의 영역입니다.";
+
+		public bool SanitizeResponse { get; } = true;
 	}
 }
