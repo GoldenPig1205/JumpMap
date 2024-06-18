@@ -162,19 +162,30 @@ namespace site02
             gtool = gameobject.AddComponent<Gtool>();
 
             MapEditorReborn.API.Features.Serializable.MapSchematic mapByName = MapEditorReborn.API.Features.MapUtils.GetMapByName("jm");
-            MapEditorReborn.API.API.CurrentLoadedMap = mapByName; 
-            
+            MapEditorReborn.API.API.CurrentLoadedMap = mapByName;
+
+            Server.ExecuteCommand($"/au add 1");
+            Server.ExecuteCommand($"/au vol 1 3");
+            Server.ExecuteCommand($"/au loop 1 true");
+            for (int i=1; i<4; i++)
+                Server.ExecuteCommand($"/au enqueue 1 C:/Users/GoldenPig1205/AppData/Roaming/EXILED/Plugins/audio/{i}.ogg {i}");
+
+            Server.ExecuteCommand($"/au play 1 1.ogg");
+
             while (true)
             {
                 foreach (var player in Player.List)
                 {
-                    if (HealingCooldown[player.UserId] <= 0)
+                    if (!player.IsNPC)
                     {
-                        player.Heal(10);
-                    }
-                    else
-                    {
-                        HealingCooldown[player.UserId] -= 1;
+                        if (HealingCooldown[player.UserId] <= 0)
+                        {
+                            player.Heal(10);
+                        }
+                        else
+                        {
+                            HealingCooldown[player.UserId] -= 1;
+                        }
                     }
                 }
 
@@ -206,8 +217,11 @@ namespace site02
 
         public void OnLeft(Exiled.Events.EventArgs.Player.LeftEventArgs ev)
         {
-            Stage.Remove(ev.Player.UserId);
-            HealingCooldown.Remove(ev.Player.UserId);
+            if (Stage.Keys.Contains(ev.Player.UserId))
+            {
+                Stage.Remove(ev.Player.UserId);
+                HealingCooldown.Remove(ev.Player.UserId);
+            }
         }
 
         public void OnDying(Exiled.Events.EventArgs.Player.DyingEventArgs ev)
