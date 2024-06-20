@@ -164,14 +164,6 @@ namespace site02
             MapEditorReborn.API.Features.Serializable.MapSchematic mapByName = MapEditorReborn.API.Features.MapUtils.GetMapByName("jm");
             MapEditorReborn.API.API.CurrentLoadedMap = mapByName;
 
-            Server.ExecuteCommand($"/au add 1");
-            Server.ExecuteCommand($"/au vol 1 3");
-            Server.ExecuteCommand($"/au loop 1 true");
-            for (int i=1; i<4; i++)
-                Server.ExecuteCommand($"/au enqueue 1 C:/Users/GoldenPig1205/AppData/Roaming/EXILED/Plugins/audio/{i}.ogg {i}");
-
-            Server.ExecuteCommand($"/au play 1 1.ogg");
-
             while (true)
             {
                 foreach (var player in Player.List)
@@ -239,19 +231,47 @@ namespace site02
 
             ev.Player.Role.Set(PlayerRoles.RoleTypeId.Tutorial);
 
+            int ul = int.Parse(Stage[ev.Player.UserId]);
+
             Vector3 position()
             {
-                int ul = int.Parse(Stage[ev.Player.UserId]);
+                switch (ul)
+                {
+                    case 2:
+                        return new Vector3(80.3074f, 1054.351f, -7.996504f);
 
-                if (ul >= 10)
-                    return new Vector3(68.40506f, 1073.64f, -61.16057f);
+                    case 3:
+                        return new Vector3(90.88943f, 1055.676f, -14.25041f);
 
-                else if (ul >= 5)
-                    return new Vector3(98.48161f, 1065.135f, -19.03773f);
+                    case 4:
+                        return new Vector3(89.58475f, 1054.094f, -42.57072f);
 
-                else
-                    return new Vector3(80.45463f, 1053.379f, -42.54824f);
+                    case 5:
+                        return new Vector3(98.65897f, 1065.133f, -18.92229f);
+
+                    case 6:
+                        return new Vector3(73.04178f, 1055.922f, -23.73088f);
+
+                    case 7:
+                        return new Vector3(77.54218f, 1058.104f, -53.67687f);
+
+                    case 8:
+                        return new Vector3(68.44922f, 1089.934f, -8.289063f);
+
+                    case 9:
+                        return new Vector3(62.8125f, 1048.953f, 10.29688f);
+
+                    case 10:
+                        return new Vector3(68.34256f, 1073.64f, -61.43791f);
+
+                    case 11:
+                        return new Vector3(98.6785f, 1082.613f, -60.84807f);
+
+                    default:
+                        return new Vector3(80.24559f, 1053.379f, -43.26994f);
+                }
             }
+
             ev.Player.Position = position();
         }
 

@@ -8,7 +8,7 @@ namespace site02.Commands
 	[CommandHandler(typeof(ClientCommandHandler))]
 	public class Test : ICommand
 	{
-		public bool Execute(ArraySegment<string> arguments, ICommandSender sender, [UnscopedRef] out string response)
+		public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
 		{
 			bool result;
 
@@ -49,7 +49,7 @@ namespace site02.Commands
 	[CommandHandler(typeof(ClientCommandHandler))]
 	public class Adminme : ICommand
 	{
-		public bool Execute(ArraySegment<string> arguments, ICommandSender sender, [UnscopedRef] out string response)
+		public bool Execute(ArraySegment<string> arguments, ICommandSender sender, out string response)
 		{
 			bool result;
 
