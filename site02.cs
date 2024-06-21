@@ -112,7 +112,6 @@ namespace site02
             Exiled.Events.Handlers.Player.DroppingAmmo += OnDroppingAmmo;
             Exiled.Events.Handlers.Player.SpawnedRagdoll += OnSpawnedRagdoll;
             Exiled.Events.Handlers.Player.Hurt += OnHurt;
-            Exiled.Events.Handlers.Player.FlippingCoin += OnFlippingCoin;
         }
 
         public override void OnDisabled()
@@ -130,7 +129,6 @@ namespace site02
             Exiled.Events.Handlers.Player.DroppingAmmo -= OnDroppingAmmo;
             Exiled.Events.Handlers.Player.SpawnedRagdoll -= OnSpawnedRagdoll;
             Exiled.Events.Handlers.Player.Hurt -= OnHurt;
-            Exiled.Events.Handlers.Player.FlippingCoin -= OnFlippingCoin;
 
             Instance = null;
         }
@@ -320,12 +318,6 @@ namespace site02
         {
             HealingCooldown[ev.Player.UserId] = 5;
         }
-
-        public void OnFlippingCoin(Exiled.Events.EventArgs.Player.FlippingCoinEventArgs ev)
-        {
-            ServerConsole.AddLog($"{ev.Player.Nickname}의 위치 : {ev.Player.Position.x} {ev.Player.Position.y} {ev.Player.Position.z}", ConsoleColor.DarkMagenta);
-        }
-
     }
 }
 
