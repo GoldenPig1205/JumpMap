@@ -183,24 +183,29 @@ namespace site02
             }
         }
 
-        public async void OnVerified(Exiled.Events.EventArgs.Player.VerifiedEventArgs ev)
+        public void OnVerified(Exiled.Events.EventArgs.Player.VerifiedEventArgs ev)
         {
-            gtool.hits.Add(new Hit { player = ev.Player });
+            Verified(ev.Player);
+        }
 
-            Server.ExecuteCommand($"/speak {ev.Player.Id} enable");
-            ev.Player.Role.Set(PlayerRoles.RoleTypeId.Tutorial);
-            ev.Player.Position = new Vector3(80.45463f, 1053.379f, -42.54824f);
+        public async void Verified(Player player)
+        {
+            gtool.hits.Add(new Hit { player = player });
 
-            if (!Stage.Keys.Contains(ev.Player.UserId))
-                Stage.Add(ev.Player.UserId, "1");
+            Server.ExecuteCommand($"/speak {player.Id} enable");
+            player.Role.Set(PlayerRoles.RoleTypeId.Tutorial);
+            player.Position = new Vector3(80.45463f, 1053.379f, -42.54824f);
 
-            if (!HealingCooldown.Keys.Contains(ev.Player.UserId))
-                HealingCooldown.Add(ev.Player.UserId, 0);
+            if (!Stage.Keys.Contains(player.UserId))
+                Stage.Add(player.UserId, "1");
 
-            while (ev.Player != null)
+            if (!HealingCooldown.Keys.Contains(player.UserId))
+                HealingCooldown.Add(player.UserId, 0);
+
+            while (player != null)
             {
-                if (!ev.Player.IsDead)
-                    ev.Player.ShowHint($"<b>Stage {Stage[ev.Player.UserId]}</b>", 1);
+                if (!player.IsDead)
+                    player.ShowHint($"<b>Stage {Stage[player.UserId]}</b>", 1.2f);
                 await Task.Delay(1000);
             }
         }
