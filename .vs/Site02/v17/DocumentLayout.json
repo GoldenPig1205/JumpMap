@@ -1,18 +1,18 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\GoldenPig1205\\Desktop\\GoldenPig1205\\Visual Studio 2022\\Site02\\",
+  "WorkspaceRootPath": "D:\\GoldenPig1205\\Visual Studio 2022\\Site02\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B21F6EF8-2F09-4A59-A826-147DF43DFD5B}|Site02.csproj|c:\\users\\goldenpig1205\\desktop\\goldenpig1205\\visual studio 2022\\site02\\site02.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B21F6EF8-2F09-4A59-A826-147DF43DFD5B}|Site02.csproj|solutionrelative:site02.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\GoldenPig1205\\Visual Studio 2022\\Site02\\site02.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:site02.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B21F6EF8-2F09-4A59-A826-147DF43DFD5B}|Site02.csproj|C:\\Users\\GoldenPig1205\\Desktop\\GoldenPig1205\\Visual Studio 2022\\Site02\\site02.commands.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B21F6EF8-2F09-4A59-A826-147DF43DFD5B}|Site02.csproj|solutionrelative:site02.commands.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\GoldenPig1205\\Visual Studio 2022\\Site02\\Config.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Config.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B21F6EF8-2F09-4A59-A826-147DF43DFD5B}|Site02.csproj|C:\\Users\\GoldenPig1205\\Desktop\\GoldenPig1205\\Visual Studio 2022\\Site02\\config.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B21F6EF8-2F09-4A59-A826-147DF43DFD5B}|Site02.csproj|solutionrelative:config.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\GoldenPig1205\\Visual Studio 2022\\Site02\\site02.Commands.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:site02.Commands.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -28,34 +28,35 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "site02.cs",
-              "DocumentMoniker": "C:\\Users\\GoldenPig1205\\Desktop\\GoldenPig1205\\Visual Studio 2022\\Site02\\site02.cs",
+              "DocumentMoniker": "D:\\GoldenPig1205\\Visual Studio 2022\\Site02\\site02.cs",
               "RelativeDocumentMoniker": "site02.cs",
-              "ToolTip": "C:\\Users\\GoldenPig1205\\Desktop\\GoldenPig1205\\Visual Studio 2022\\Site02\\site02.cs",
+              "ToolTip": "D:\\GoldenPig1205\\Visual Studio 2022\\Site02\\site02.cs",
               "RelativeToolTip": "site02.cs",
-              "ViewState": "AQIAALQAAAAAAAAAAAAswNMAAAAAAAAA",
+              "ViewState": "AgIAAMQAAAAAAAAAAAAAACIBAABLAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-20T13:24:18.669Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
               "Title": "Config.cs",
-              "DocumentMoniker": "C:\\Users\\GoldenPig1205\\Desktop\\GoldenPig1205\\Visual Studio 2022\\Site02\\Config.cs",
+              "DocumentMoniker": "D:\\GoldenPig1205\\Visual Studio 2022\\Site02\\Config.cs",
               "RelativeDocumentMoniker": "Config.cs",
-              "ToolTip": "C:\\Users\\GoldenPig1205\\Desktop\\GoldenPig1205\\Visual Studio 2022\\Site02\\Config.cs",
+              "ToolTip": "D:\\GoldenPig1205\\Visual Studio 2022\\Site02\\Config.cs",
               "RelativeToolTip": "Config.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-20T13:25:53.759Z"
+              "WhenOpened": "2024-06-20T13:25:53.759Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "site02.Commands.cs",
-              "DocumentMoniker": "C:\\Users\\GoldenPig1205\\Desktop\\GoldenPig1205\\Visual Studio 2022\\Site02\\site02.Commands.cs",
+              "DocumentMoniker": "D:\\GoldenPig1205\\Visual Studio 2022\\Site02\\site02.Commands.cs",
               "RelativeDocumentMoniker": "site02.Commands.cs",
-              "ToolTip": "C:\\Users\\GoldenPig1205\\Desktop\\GoldenPig1205\\Visual Studio 2022\\Site02\\site02.Commands.cs",
+              "ToolTip": "D:\\GoldenPig1205\\Visual Studio 2022\\Site02\\site02.Commands.cs",
               "RelativeToolTip": "site02.Commands.cs",
               "ViewState": "AQIAAC0AAAAAAAAAAAA1wEoAAAAtAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",

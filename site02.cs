@@ -106,7 +106,6 @@ namespace site02
             Exiled.Events.Handlers.Player.Left += OnLeft;
             Exiled.Events.Handlers.Player.Dying += OnDying;
             Exiled.Events.Handlers.Player.Died += OnDied;
-            Exiled.Events.Handlers.Player.Spawned += OnSpawned;
             Exiled.Events.Handlers.Player.SearchingPickup += OnSearchingPickup;
             Exiled.Events.Handlers.Player.DroppedItem += OnDroppedItem;
             Exiled.Events.Handlers.Player.DroppingAmmo += OnDroppingAmmo;
@@ -123,7 +122,6 @@ namespace site02
             Exiled.Events.Handlers.Player.Left -= OnLeft;
             Exiled.Events.Handlers.Player.Dying -= OnDying;
             Exiled.Events.Handlers.Player.Died -= OnDied;
-            Exiled.Events.Handlers.Player.Spawned -= OnSpawned;
             Exiled.Events.Handlers.Player.SearchingPickup -= OnSearchingPickup;
             Exiled.Events.Handlers.Player.DroppedItem -= OnDroppedItem;
             Exiled.Events.Handlers.Player.DroppingAmmo -= OnDroppingAmmo;
@@ -276,13 +274,6 @@ namespace site02
             }
 
             ev.Player.Position = position();
-        }
-
-        public async void OnSpawned(Exiled.Events.EventArgs.Player.SpawnedEventArgs ev)
-        {
-            Player.List.ToList().ForEach(x => x.EnableEffect(Exiled.API.Enums.EffectType.FogControl, 0));
-            await Task.Delay(10);
-            Player.List.ToList().ForEach(x => x.EnableEffect(Exiled.API.Enums.EffectType.FogControl, 1));
         }
 
         public void OnSearchingPickup(Exiled.Events.EventArgs.Player.SearchingPickupEventArgs ev)

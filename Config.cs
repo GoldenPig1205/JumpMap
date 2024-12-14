@@ -9,7 +9,7 @@ namespace site02
 {
     public class Config : IConfig
     {
-        public bool IsEnabled { get; set; } = true;
+        public bool IsEnabled { get; set; } = false;
         public bool Debug { get; set; } = false;
     }
 }
