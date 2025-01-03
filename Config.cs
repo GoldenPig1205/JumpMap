@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Exiled.API.Interfaces;
 
-namespace site02
+namespace JumpMap
 {
     public class Config : IConfig
     {

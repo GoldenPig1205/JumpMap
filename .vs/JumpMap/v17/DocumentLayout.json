@@ -1,0 +1,41 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\GoldenPig1205\\Visual Studio 2022\\JumpMap\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{B21F6EF8-2F09-4A59-A826-147DF43DFD5B}|JumpMap.csproj|d:\\goldenpig1205\\visual studio 2022\\jumpmap\\jumpmap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B21F6EF8-2F09-4A59-A826-147DF43DFD5B}|JumpMap.csproj|solutionrelative:jumpmap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "JumpMap.cs",
+              "DocumentMoniker": "D:\\GoldenPig1205\\Visual Studio 2022\\JumpMap\\JumpMap.cs",
+              "RelativeDocumentMoniker": "JumpMap.cs",
+              "ToolTip": "D:\\GoldenPig1205\\Visual Studio 2022\\JumpMap\\JumpMap.cs",
+              "RelativeToolTip": "JumpMap.cs",
+              "ViewState": "AgIAAAMBAAAAAAAAAADwvwYBAABLAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-03T15:58:45.68Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
